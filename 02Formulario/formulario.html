@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejemplo de Formulario y su Validación</title>
+     <link rel="stylesheet" href="./CSS/style.css">
     <script src="./JS/validarformulario.js"></script>
 </head>
 <body>
     <div class="container">
         <p>Todos los formularios que estan en internet tienen metodos nos sirven para poder hacer las acciones principales como son: Acciones para poderse conectar con los servidores, a traves de las Arquitecturas Cliente Servidor. Es que vamos a tener por defecto que todos los formularios utilizan el metodo GET, y el segundo metodo principal es POST, aunque existen otros metodos que se encargan del intercambio de información.
-        GET: este metodo envia por medio de URL toda la información del formulario a traves del navegador. Su funcion principal es obtener  datos del servicio: pero es el metodo mas vulnerable de todos derivado a que se pueden generar inyecciones de codigo
-        POST: este metodo se encarga de registrar una nueva entrada al sistema, tambien utiliza la URL como envio por defecto; pero su facultad es poder ocultarla, esto significa que los datos no son visibles para el usuario comun en el navegador.
+        </p> 
+        <p>GET: este metodo envia por medio de URL toda la información del formulario a traves del navegador. Su funcion principal es obtener  datos del servicio: pero es el metodo mas vulnerable de todos derivado a que se pueden generar inyecciones de codigo
+        </p> 
+        <p>POST: este metodo se encarga de registrar una nueva entrada al sistema, tambien utiliza la URL como envio por defecto; pero su facultad es poder ocultarla, esto significa que los datos no son visibles para el usuario comun en el navegador.
         </p>
         <form name="formulario" method="GET" id="formulario" onsubmit="return validar(this)" >
 
@@ -20,7 +23,7 @@
         <br>
         <input type="text" name="nombre" id="nombre" placeholder="Por favor escriba aqui su nombre">
         <br>
-
+        
         <label for="edad">
             Edad:
         </label>
@@ -38,6 +41,15 @@
         <br>
         <input type="reset" name="borrar" value="Borrar Datos">
         <br>
+        
+        <label for="comentario">
+            Comentario:
+        </label>
+        <br>
+        <textarea name="comentario" id="comentario"></textarea>
+        <br>
+        <input type="submit" value="Enviar">
+        <input type="reset" value="Borrar">
 
         </form>
     </div>
