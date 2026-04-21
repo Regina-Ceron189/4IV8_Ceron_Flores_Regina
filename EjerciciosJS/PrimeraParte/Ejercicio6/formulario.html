@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Calcular Edad</title>
+    <link rel="stylesheet" href="./CSS/style.css">
+    <script src="./JS/validarformulario.js"></script>
+
+</head>
+<body>
+
+<div class="contenedor">
+
+    <div class="card">
+        <form onsubmit="return calcular()">
+            <h2>Edad</h2>
+
+            <label>Año de nacimiento:</label>
+            <input type="text" id="anio" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
+
+            <input type="submit" value="Calcular">
+        </form>
+    </div>
+
+    <div class="resultado" id="resultado">
+        Resultado
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Calificación Final</title>
+    <link rel="stylesheet" href="./CSS/style.css">
+    <script src="./JS/validarformulario.js"></script>
+</head>
+<body>
+
+<div class="contenedor">
+
+    <div class="card">
+        <form onsubmit="return calcular()">
+            <h2>Calificación Final</h2>
+
+            <label>Parcial 1:</label>
+            <input type="text" id="p1" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" required>
+
+            <label>Parcial 2:</label>
+            <input type="text" id="p2" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" required>
+
+            <label>Parcial 3:</label>
+            <input type="text" id="p3" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" required>
+
+            <label>Examen final:</label>
+            <input type="text" id="examen" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" required>
+
+            <label>Trabajo final:</label>
+            <input type="text" id="trabajo" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" required>
+
+            <input type="submit" value="Calcular">
+        </form>
+    </div>
+
+    <div class="resultado" id="resultado">
+        Resultado
+    </div>
+
+</div>
+<div class="container-footer">
+            <footer>
+                <h2>Esta etiqueta sirve principalmente como pie de pagina, y lo mas comun es colocar redes sociales, contacto, terminos legales, etc.</h2>
+                <a href="../index.html">Regresar a pagina principal</a>
+            </footer>
+        </div>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ejercicio 3</title>
+    <link rel="stylesheet" href="./CSS/style.css">
+    <script src="./JS/validarformulario.js"></script>
+</head>
+<body>
+
+<div class="contenedor">
+
+    <div class="card">
+        <form onsubmit="return calcular()">
+            <h2>Descuento</h2>
+
+            <label>Total de la compra:</label>
+            <input type="text" id="total" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" required>
+
+            <input type="submit" value="Calcular">
+        </form>
+    </div>
+
+    <div class="resultado" id="resultado">
+        Resultado
+    </div>
+
+</div>
+
+<script>
+function calcular(){
+
+    let total = document.getElementById("total").value.trim();
+    let regex = /^[0-9]+(\.[0-9]+)?$/;
+
+    if(total === ""){
+        alert("El campo es obligatorio");
+        return false;
+    }
+
+    if(!regex.test(total)){
+        alert("Solo se permiten números positivos");
+        return false;
+    }
+
+    total = parseFloat(total);
+
+    if(total <= 0){
+        alert("El valor debe ser mayor a cero");
+        return false;
+    }
+
+    let descuento = total * 0.15;
+    let totalFinal = total - descuento;
+
+    document.getElementById("resultado").innerHTML =
+        "Descuento: $" + descuento.toFixed(2) + "<br>" +
+        "Total a pagar: $" + totalFinal.toFixed(2);
+
+    return false;
+}
+</script>
+<div class="container-footer">
+            <footer>
+                <h2>Esta etiqueta sirve principalmente como pie de pagina, y lo mas comun es colocar redes sociales, contacto, terminos legales, etc.</h2>
+                <a href="../index.html">Regresar a pagina principal</a>
+            </footer>
+        </div>
+</body>
+</html>

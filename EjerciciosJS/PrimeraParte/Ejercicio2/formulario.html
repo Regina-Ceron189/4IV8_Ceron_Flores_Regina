@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ejercicio 2</title>
+    <link rel="stylesheet" href="./CSS/style.css">
+    <script src="./JS/validarformulario.js"></script>
+</head>
+<body>
+
+<div class="contenedor">
+
+    <div class="card">
+        <form onsubmit="return calcular()">
+            <h2>Ventas</h2>
+
+            <label>Sueldo base:</label>
+            <input type="number" id="sueldo" required>
+
+            <label>Venta 1:</label>
+            <input type="number" id="venta1" required>
+
+            <label>Venta 2:</label>
+            <input type="number" id="venta2" required>
+
+            <label>Venta 3:</label>
+            <input type="number" id="venta3" required>
+
+            <input type="submit" value="Calcular">
+        </form>
+    </div>
+
+    <div class="resultado" id="resultado">
+        Resultado
+    </div>
+
+</div>
+
+<script>
+function calcular(){
+    let sueldo = parseFloat(document.getElementById("sueldo").value);
+    let v1 = parseFloat(document.getElementById("venta1").value);
+    let v2 = parseFloat(document.getElementById("venta2").value);
+    let v3 = parseFloat(document.getElementById("venta3").value);
+
+    let totalVentas = v1 + v2 + v3;
+    let comision = totalVentas * 0.10;
+    let total = sueldo + comision;
+
+    document.getElementById("resultado").innerHTML =
+        "Comisiones: $" + comision.toFixed(2) + "<br>" +
+        "Total a recibir: $" + total.toFixed(2);
+
+    return false;
+}
+</script>
+<div class="container-footer">
+            <footer>
+                <h2>Esta etiqueta sirve principalmente como pie de pagina, y lo mas comun es colocar redes sociales, contacto, terminos legales, etc.</h2>
+                <a href="../index.html">Regresar a pagina principal</a>
+            </footer>
+        </div>
+
+</body>
+</html>
