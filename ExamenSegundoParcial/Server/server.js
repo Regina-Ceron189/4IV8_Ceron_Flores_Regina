@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 const db = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || 'GA7reg@108',
+    password: process.env.DB_PASSWORD || 'n0m3l0',
     database: process.env.DB_NAME || 'pnt_practica1',
     waitForConnections: true,
     connectionLimit: 10,
