@@ -86,3 +86,43 @@ input[type="button"]:hover{
 .container-footer a:hover{
     text-decoration: underline;
 }
+
+input[type="button"] {
+    width: 100%;
+    padding: 10px;
+    background: #ff66a3;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+input[name="delete"] {
+    background: #a9a9a9;
+}
+
+input[type="button"]:hover {
+    filter: brightness(90%);
+    transform: scale(1.02); 
+}
+
+.container-footer {
+    margin-top: 30px;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+}
+
+.container-footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.container-footer a:hover {
+    color: #ffdae0;
+    text-decoration: underline;
+}

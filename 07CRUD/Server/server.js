@@ -17,10 +17,10 @@ const PORT = process.env.PORT || 3000;
 
 //vamos a conectarnos a la bd
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'n0m3l0',
-    database: 'pnt_practica1',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     waitForConnections: true, //esperar si no hay conexiones disponibles
     connectionLimit: 10, //maximo de conexiones simultaneas
     queueLimit: 0 //sin limite en la cola de espera

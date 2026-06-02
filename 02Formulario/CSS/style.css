@@ -78,3 +78,19 @@ input[type="reset"]:hover{
     background-color: rgb(210, 160, 175);
 }
 
+footer a {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: rgb(95, 53, 78);
+    color: white !important;           
+    text-decoration: none;             
+    border-radius: 8px;                
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+footer a:hover {
+    background-color: rgb(136, 62, 101);
+    cursor: pointer;
+}

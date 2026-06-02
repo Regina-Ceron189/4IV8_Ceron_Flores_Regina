@@ -47,3 +47,5 @@ async function cargarUsuarios() {
     }
     
 }
+
+require('dotenv').config();

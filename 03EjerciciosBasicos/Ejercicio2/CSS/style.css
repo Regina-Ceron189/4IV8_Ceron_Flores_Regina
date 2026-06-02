@@ -2,6 +2,7 @@ body{
     height: 100vh;
     background: linear-gradient(135deg, #ff9a9e, #fad0c4);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: Arial;
@@ -9,7 +10,8 @@ body{
 
 .contenedor{
     display: flex;
-    gap: 40px;
+    flex-direction: column;
+    gap: 20px;
     align-items: center;
 }
 
@@ -52,4 +54,44 @@ input[type="submit"]{
 
 input[type="submit"]:hover{
     background: #c57e9a;
+}
+
+input[type="button"] {
+    width: 100%;
+    padding: 10px;
+    background: #ff66a3;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+input[name="delete"] {
+    background: #a9a9a9; 
+}
+
+input[type="button"]:hover {
+    filter: brightness(90%);
+    transform: scale(1.02); 
+}
+
+.container-footer {
+    margin-top: 30px;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+}
+
+.container-footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.container-footer a:hover {
+    color: #ffdae0;
+    text-decoration: underline;
 }
