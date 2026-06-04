@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -5,7 +7,7 @@ const path = require('path');
 const app = express();
 //servidor para iniciarlizar con express
 
-const Port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 //para poder aplicar el MVC necesitamos un intermediario que se va a encargar de ser un mesero (middleware), el cual para cada peticion que pasa por la ruta de la vista, obtiene una petición y la envia a un controlador
 
