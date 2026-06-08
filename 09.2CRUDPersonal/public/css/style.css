@@ -1,0 +1,615 @@
+/* ============================================================
+   style.css — Sistema de Compras y Biblioteca (Estilo Rosa)
+   ============================================================ */
+
+/* ---------- VARIABLES DE COLOR (Paleta Rosa) ---------- */
+:root {
+  --rosa-fondo:   #e873a9; /* Tono fuerte para el header */
+  --rosa-brillo:  #ecb4ce; /* Tono claro para el degradado */
+  --rosa-boton:   #d44e8d; /* Color vibrante para botones */
+  --fondo-pag:    #813956; /* Fondo muy suave de la página */
+  --blanco:       #ffffff;
+  --texto-oscuro: #e59fc0; /* Rosa muy oscuro para legibilidad */
+  --texto-gris:   #e7c0d3;
+  --borde-rosa:   #7a1744;
+}
+
+/* ---------- BASE ---------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--fondo-pag);
+  color: var(--texto-oscuro);
+  min-height: 100vh;
+}
+
+/* ---------- ENCABEZADO ---------- */
+.header-principal {
+  background: linear-gradient(to right, var(--rosa-fondo), #d44e8d);
+  color: var(--blanco);
+  text-align: center;
+  padding-top: 30px;
+}
+
+.header-principal h1 {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+.header-principal p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 25px;
+}
+
+/* ---------- PESTAÑAS ---------- */
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  gap: 5px;
+}
+
+.nav-btn {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--blanco);
+  border: none;
+  padding: 12px 24px;
+  cursor: pointer;
+  border-radius: 8px 8px 0 0;
+}
+
+.nav-btn.active {
+  background-color: var(--blanco);
+  color: var(--rosa-boton);
+  font-weight: 600;
+}
+
+/* ---------- CONTENEDOR ---------- */
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* ---------- TARJETAS ---------- */
+.card {
+  background-color: var(--blanco);
+  border-radius: 12px;
+  padding: 30px;
+  border: 1px solid var(--borde-rosa);
+  box-shadow: 0 4px 6px rgba(232, 115, 169, 0.1);
+}
+
+/* ---------- ESTADO DE LA API ---------- */
+.api-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge-method {
+  background-color: #fce7f3; /* Rosa pastel */
+  color: var(--rosa-boton);
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+.badge-status {
+  background-color: #fdf2f8;
+  color: #a855f7; /* Un tono que combina con el rosa */
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--borde-rosa);
+}
+
+/* ---------- FORMULARIO ---------- */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.field input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--borde-rosa);
+  border-radius: 8px;
+  outline: none;
+}
+
+.field input:focus {
+  border-color: var(--rosa-boton);
+  box-shadow: 0 0 0 3px rgba(212, 78, 141, 0.1);
+}
+
+/* ---------- BOTÓN ---------- */
+.btn-primary {
+  background-color: var(--rosa-boton);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+/* ---------- NAVBAR (fix: fondo coherente con la paleta) ---------- */
+.navbar {
+  background: linear-gradient(to right, var(--rosa-fondo), var(--rosa-boton));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.nav-logo {
+  color: var(--blanco);
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- TÍTULOS DE SECCIÓN CENTRADOS ---------- */
+.page-header {
+  text-align: center;
+  padding: 10px 0 4px;
+}
+
+.page-header h1 {
+  font-family: 'Lora', serif;
+  font-size: 1.8rem;
+  color: var(--blanco);
+}
+
+.page-header p {
+  color: var(--texto-gris);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.card-title {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  color: var(--rosa-boton);
+  margin-bottom: 18px;
+}
+
+.reviews-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.reviews-header h2 {
+  font-family: 'Lora', serif;
+  color: var(--blanco);
+  font-size: 1.3rem;
+}
+
+.badge {
+  background: var(--rosa-boton);
+  color: var(--blanco);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+/* ---------- FIELDSET Y LEGEND ---------- */
+fieldset {
+  border: 1px solid var(--borde-rosa);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+legend {
+  font-family: 'Lora', serif;
+  color: var(--rosa-boton);
+  font-weight: 600;
+  padding: 0 8px;
+  font-size: 0.95rem;
+}
+
+/* ---------- CAMPOS ---------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.field label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--rosa-boton);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--borde-rosa);
+  border-radius: 8px;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  background: white;
+  color: #3d1a2c;
+  resize: vertical;
+}
+
+.field textarea:focus,
+.field select:focus,
+.field input:focus {
+  border-color: var(--rosa-boton);
+  box-shadow: 0 0 0 3px rgba(212, 78, 141, 0.12);
+}
+
+.field input.invalid,
+.field textarea.invalid {
+  border-color: #e57373;
+  box-shadow: 0 0 0 3px rgba(229, 115, 115, 0.15);
+}
+
+/* ---------- ACCIONES DEL FORMULARIO ---------- */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--rosa-boton);
+  border: 1px solid var(--rosa-boton);
+  padding: 10px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+  background: rgba(212, 78, 141, 0.08);
+}
+
+/* ---------- MENSAJES DE FORMULARIO ---------- */
+.message {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  margin-bottom: 14px;
+}
+
+.message.error {
+  background: #fde8e8;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+}
+
+.message.success {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.message.hidden { display: none; }
+
+/* ---------- ESTRELLAS ---------- */
+.stars {
+  display: flex;
+  gap: 4px;
+}
+
+.star {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: #dbb3c9;
+  cursor: pointer;
+  padding: 0 2px;
+  transition: color 0.15s, transform 0.1s;
+  line-height: 1;
+}
+
+.star.selected,
+.star.hovered {
+  color: var(--rosa-boton);
+}
+
+.star:hover {
+  transform: scale(1.15);
+}
+
+#star-hint {
+  font-size: 0.8rem;
+  color: var(--texto-gris);
+  margin-top: 4px;
+  display: block;
+}
+
+/* ---------- ESTADOS VACÍO / CARGANDO ---------- */
+.state-box {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--texto-gris);
+}
+
+.state-box p { margin-top: 10px; font-size: 0.95rem; }
+.state-box small { font-size: 0.82rem; color: var(--texto-gris); }
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(212, 78, 141, 0.2);
+  border-top-color: var(--rosa-boton);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.hidden { display: none !important; }
+
+/* ---------- GRID DE RESEÑAS ---------- */
+.reviews-section {
+  margin-top: 10px;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ---------- TARJETA DE RESEÑA ---------- */
+.review-card {
+  background: var(--blanco);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid var(--borde-rosa);
+  box-shadow: 0 2px 8px rgba(122, 23, 68, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: box-shadow 0.2s;
+}
+
+.review-card:hover {
+  box-shadow: 0 6px 18px rgba(212, 78, 141, 0.18);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag-format,
+.tag-genre {
+  background: #fce7f3;
+  color: var(--rosa-boton);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+.btn-delete {
+  background: none;
+  border: none;
+  color: #dbb3c9;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.btn-delete:hover {
+  color: #e57373;
+  background: #fde8e8;
+}
+
+.review-card .card-title {
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  color: #3d1a2c;
+  margin-bottom: 0;
+}
+
+.card-author {
+  font-size: 0.85rem;
+  color: var(--texto-gris);
+  font-style: italic;
+}
+
+.card-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star-on  { color: var(--rosa-boton); font-size: 1rem; }
+.star-off { color: #dbb3c9;           font-size: 1rem; }
+
+.card-info {
+  display: flex;
+  gap: 16px;
+  font-size: 0.82rem;
+  color: var(--texto-gris);
+  border-top: 1px solid #f9e0ed;
+  padding-top: 10px;
+}
+
+.card-info small { display: block; font-weight: 600; color: var(--rosa-boton); }
+
+.card-block {
+  background: #fdf2f8;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+}
+
+.block-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--rosa-boton);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 5px;
+}
+
+.card-summary,
+.card-opinion {
+  color: #3d1a2c;
+  line-height: 1.5;
+}
+
+.card-quote {
+  border-left: 3px solid var(--rosa-boton);
+  padding-left: 12px;
+  font-style: italic;
+  color: var(--texto-gris);
+  font-size: 0.88rem;
+}
+
+/* ---------- MODAL ELIMINAR ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(61, 26, 44, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-box {
+  background: var(--blanco);
+  border-radius: 14px;
+  padding: 32px 28px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(122, 23, 68, 0.25);
+}
+
+.modal-box h3 {
+  font-family: 'Lora', serif;
+  color: #3d1a2c;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+
+.modal-box p {
+  color: var(--texto-gris);
+  font-size: 0.9rem;
+  margin-bottom: 22px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn-danger {
+  background: #e57373;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: filter 0.2s;
+}
+
+.btn-danger:hover { filter: brightness(0.92); }
+
+/* ---------- API CARD (detalles) ---------- */
+.api-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.api-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--texto-gris);
+  text-transform: uppercase;
+}
+
+.api-request {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.api-endpoint {
+  font-size: 0.88rem;
+  color: #3d1a2c;
+}
+
+/* ---------- PLACEHOLDERS DE PESTAÑAS ---------- */
+.placeholder {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--texto-gris);
+}
+
+.placeholder h2 {
+  font-family: 'Lora', serif;
+  color: var(--blanco);
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.placeholder p {
+  font-size: 0.92rem;
+}
+
+.placeholder-icon {
+  font-size: 2.5rem;
+  margin-bottom: 14px;
+}
