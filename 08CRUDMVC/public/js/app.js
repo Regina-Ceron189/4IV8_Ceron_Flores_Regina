@@ -29,7 +29,8 @@ const apiCodigo = document.getElementById('api-codigo');
 const notificacionDiv = document.getElementById('notificacion');
 
 // Fetch wrapper con logging (evolución de P2)
-async function fetchAPI(url, opciones = {}) {
+    async function fetchAPI(url, opciones = {}) {
+    console.log("URL:", url); 
     const method = opciones.method || 'GET';
 
     apiMetodo.textContent = method;
@@ -341,8 +342,7 @@ function limpiarFormProducto() {
     inputProductoPrecio.classList.remove('input-error');
 }
 
-formProducto.addEventListener('submit', async (e) => {
-    e.preventDefault();
+formProducto.addEventListener('submit', async (e) => {e.preventDefault();
     if (!validarFormProducto()) return;
 
     const datos = {
@@ -409,7 +409,7 @@ async function eliminarProducto(id) {
     }
 }
 
-btnCancelarProducto.addEventListener('click', limpiarFormProducto);
+        btnCancelarProducto.addEventListener('click', limpiarFormProducto);
 
 // ============================================================
 // 4. MÓDULO DE COMPRAS

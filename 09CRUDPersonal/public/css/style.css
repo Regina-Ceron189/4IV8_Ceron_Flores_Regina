@@ -1,0 +1,343 @@
+:root { --color-azul-boton: #1d5bfd;
+        --color-azul-hover: #1a4fd4;
+        --color-bg: #f8fafc;
+        --color-texto-main: #1e293b;
+        --color-texto-secundario: #64748b;
+        --radio-card: 20px;
+        
+        /* Esquinas muy suaves como tu imagen */
+        --radio-input: 10px;
+        } * { box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system,BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        } body { background-color: var(--color-bg);
+            color: var(--color-texto-main);
+            padding-bottom: 60px;
+        }
+/*============================================================
+    ENCABEZADO (DEGRADADO EXACTO DESDE AZUL OSCURO A REY)
+============================================================ */
+header { background: linear-gradient(135deg, #0f172a, #1e40af);
+    color: white;
+    padding: 1.5rem 1.5rem 0;
+    text-align: center;
+} header h1 { font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+} header p { font-size: 0.875rem; opacity: 0.9;
+    margin-bottom: 1rem;
+}
+/* NUEVO: Pestañas de navegación */
+.tabs { display: flex;
+    justify-content: center;
+    gap: 0;
+} .tab { padding: 0.6rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    border-radius: 8px 8px 0 0;
+} .tab:hover { background: rgba(255, 255, 255, 0.2);
+    color: white;
+} .tab.active {
+    background: var(--color-fondo);
+        color: var(--color-texto);
+    }
+/* ============================================================
+ESTRUCTURA PRINCIPAL CENTRADA
+============================================================ */
+main { max-width: 1140px;
+    
+/* Ancho real expandido de tu pantalla */
+margin: 65px auto 0 auto;
+padding: 0 24px;
+} .seccion-contenido {
+    display: none;
+} .seccion-contenido.active {
+    display: block;
+    animation: smoothFade 0.25s ease-out;
+}
+
+@keyframes smoothFade { from { opacity: 0;
+    transform: translateY(6px);
+} to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+/* ============================================================
+TARJETAS (CARDS BLANCAS LIMPIAS)
+============================================================ */
+.card { background-color: #ffffff;
+    border-radius: var(--radio-card);
+    padding: 35px 40px; margin-bottom: 24px;
+    border: 1px solid #edf2f7;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.015);
+} .card h2 { font-size: 1.45rem; font-weight: 700;
+    color: #1e293b; margin-bottom: 26px;
+    letter-spacing: -0.01em;
+}
+/* Estado de la API */
+.api-card { padding: 22px 40px;
+} .api-label {
+    display: block;
+    color: var(--color-texto-secundario);
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.06em; margin-bottom: 12px;
+} .api-status { display: flex;
+    justify-content: space-between;
+    align-items: center;
+} .endpoint-info { display: flex;
+    align-items: center;
+    gap: 14px;
+} .badge {
+    font-weight: 700;
+    font-size: 0.75rem; padding: 5px 11px;
+    border-radius: 6px;
+} .badge-get {
+    background-color:
+    #dbeafe; color: #2563eb;
+} .endpoint-url {
+    font-family: 'Courier New', Courier, monospace;
+    color: #334155;
+    font-weight: 600;
+    font-size: 0.95rem;
+} .badge-text { font-weight: 700;
+    font-size: 0.9rem;
+    color: #000000;
+    /* Texto simple 200 OK de tu última imagen */
+}
+/* ============================================================
+INPUTS, SELECTS Y FORMULARIOS
+============================================================ */
+.form-grid { display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px; margin-bottom: 28px;
+} .form-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+} .form-group label {
+    display: block;
+    margin-bottom: 10px;
+    color: #1e293b;
+    font-size: 0.95rem;
+    font-weight: 500;
+} .form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: var(--radio-input);
+    font-size: 0.95rem;
+    color: #334155;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+} .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-azul-boton);
+    box-shadow: 0 0 0 4px rgba(29, 91, 253, 0.08);
+} .form-group input::placeholder, .form-group textarea::placeholder {
+    color: #94a3b8;
+} .form-group textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+/* ============================================================
+BOTÓN GUARDAR (TONO AZUL DE TU IMAGEN ORIGINAL)
+============================================================ */
+.btn-primary {
+    background-color: var(--color-azul-boton);
+    color: #ffffff;
+    padding: 11px 26px; font-size: 0.95rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+} .btn-primary:hover {
+    background-color: var(--color-azul-hover);
+}
+/* ============================================================
+TABLAS DE DATOS
+============================================================ */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 10px;
+} table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+} th {
+    padding: 16px 14px;
+    border-bottom: 2px solid #f1f5f9;
+    color: var(--color-texto-secundario);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+} td {
+    padding: 16px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #475569;
+    font-size: 0.95rem;
+}
+/* Ajustes Responsive */
+@media (max-width: 800px) {
+    .form-grid, .form-grid-3 {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    } .tabs {
+        overflow-x: auto;
+        max-width: 100%;
+    } .tab {
+        padding: 10px 18px;
+        font-size: 0.85rem;
+    }
+}
+
+/* ============================================================
+   COMPATIBILIDAD CON EL HTML
+============================================================ */
+
+.seccion {
+    display: block;
+}
+
+.campos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 28px;
+}
+
+.campos-grid-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 10px;
+    color: #1e293b;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: var(--radio-input);
+    font-size: 0.95rem;
+    background: white;
+}
+
+.campo textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: var(--color-azul-boton);
+    box-shadow: 0 0 0 4px rgba(29,91,253,.08);
+}
+
+.botones {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.botones button {
+    background: var(--color-azul-boton);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    cursor: pointer;
+}
+
+.botones button:hover {
+    background: var(--color-azul-hover);
+}
+
+.btn-secundario {
+    background: #64748b !important;
+}
+
+.btn-secundario:hover {
+    background: #475569 !important;
+}
+
+.badge-success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badge-neutral {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.badge-error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.error {
+    color: #dc2626;
+    font-size: .85rem;
+    display: block;
+    margin-top: 5px;
+}
+
+.notificacion {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    padding: 14px 20px;
+    border-radius: 10px;
+    color: white;
+    z-index: 9999;
+    font-weight: 600;
+}
+
+.notificacion.exito {
+    background: #16a34a;
+}
+
+.notificacion.error {
+    background: #dc2626;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+    font-size: .9rem;
+}
+
+.header-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.tabs-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.tab.active {
+    background: #ffffff;
+    color: #1e293b;
+}

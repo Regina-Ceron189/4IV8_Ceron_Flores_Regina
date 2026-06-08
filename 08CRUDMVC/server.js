@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -25,7 +24,7 @@ app.use((req, res, next) => {
 });
 
 //debemos definir las rutas para los archivos
-app.use(express.static(path.join(__dirname, '--', 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 //vamos a manejar las rutas de los recursos que se van a obtener por medio de las peticiones o respuestas
 //pueden existen rutas como app.use('api/usuarios', usuariosRouter) todas las rutas son los metodos posibles para cada formulario
@@ -34,9 +33,9 @@ app.use(express.static(path.join(__dirname, '--', 'public')));
 //router.post('/')
 //router.get('/:id')
 
-const usuariosRouter = require('./routes/usuarios');
-const productosRouter = require('./routes/productos');
-const comprasRouter = require('./routes/compras');
+const usuariosRouter = require('./src/Routers/usuarios');
+const productosRouter = require('./src/Routers/productos');
+const comprasRouter = require('./src/Routers/compras');
 
 app.use('/api/usuarios', usuariosRouter);
 app.use('/api/productos', productosRouter);
@@ -76,7 +75,7 @@ app.get('/api', (req, res) => {
 });
 
 //vamos a crear una funcion para las rutas inexisten
-app.use('/api/*', (req, res) => {
+app.use('/api/*path', (req, res) => {
     res.status(404).json({
         status : 'error',
         message : 'Ruta no encontrada'
