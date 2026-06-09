@@ -1,12 +1,12 @@
 // ============================================================
-// PRÃCTICA 3 - PNT: Rutas de Productos (Express Router)
+// PRACTICA 3 - PNT: Rutas de Productos (Express Router)
 // ============================================================
 // CRUD completo para la tabla de productos.
-// Estructura idÃ©ntica al router de usuarios.
+// Estructura identica al router de usuarios.
 //
 // IMPORTANTE: Al eliminar un producto, la FK con ON DELETE RESTRICT
-// impedirÃ¡ la eliminaciÃ³n si tiene compras asociadas.
-// Esto protege la integridad de los datos histÃ³ricos.
+// impedira¡ la eliminacion si tiene compras asociadas.
+// Esto protege la integridad de los datos historicos.
 // ============================================================
 
 const express = require('express');
@@ -14,7 +14,7 @@ const router = express.Router();
 const db = require('../DB/database');
 
 // ============================================================
-// FUNCIÃ“N: Validar datos de producto
+// FUNCION: Validar datos de producto
 // ============================================================
 function validarProducto(datos) {
     const errores = [];
@@ -36,7 +36,7 @@ function validarProducto(datos) {
 }
 
 // ============================================================
-// GET /api/productos â€” Listar todos
+// GET /api/productos Listar todos
 // ============================================================
 router.get('/', async (req, res) => {
     try {
@@ -57,7 +57,7 @@ router.get('/', async (req, res) => {
 });
 
 // ============================================================
-// GET /api/productos/:id â€” Obtener uno
+// GET /api/productos/:id Obtener uno
 // ============================================================
 router.get('/:id', async (req, res) => {
     try {
@@ -83,7 +83,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // ============================================================
-// POST /api/productos â€” Crear nuevo
+// POST /api/productos Crear nuevo
 // ============================================================
 router.post('/', async (req, res) => {
     try {
@@ -113,7 +113,7 @@ router.post('/', async (req, res) => {
 });
 
 // ============================================================
-// PUT /api/productos/:id â€” Actualizar
+// PUT /api/productos/:id Actualizar
 // ============================================================
 router.put('/:id', async (req, res) => {
     try {
@@ -153,10 +153,10 @@ router.put('/:id', async (req, res) => {
 });
 
 // ============================================================
-// DELETE /api/productos/:id â€” Eliminar
+// DELETE /api/productos/:id Eliminar
 // ============================================================
 // Si el producto tiene compras asociadas, MySQL rechazarÃ¡
-// la eliminaciÃ³n gracias a ON DELETE RESTRICT.
+// la eliminacion gracias a ON DELETE RESTRICT.
 router.delete('/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -183,8 +183,6 @@ router.delete('/:id', async (req, res) => {
         });
 
     } catch (error) {
-        // Error de FK: el producto tiene compras asociadas
-        // MySQL error code 1451 = Cannot delete or update a parent row
         if (error.code === 'ER_ROW_IS_REFERENCED_2' || error.errno === 1451) {
             return res.status(409).json({
                 status: 'error',

@@ -24,19 +24,19 @@ app.use((req, res, next) => {
 // debemos definir las rutas para los archivos
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ImportaciÃ³n de los enrutadores
+// Importacion de los enrutadores
 const usuariosRouter = require('./src/Routers/usuarios');
 const productosRouter = require('./src/Routers/productos');
 const comprasRouter = require('./src/Routers/compras');
 const librosRouter = require('./src/Routers/libros');
-const resenasRouter = require('./src/Routers/resenas'); // Corregido: nombre de la variable
+const resenasRouter = require('./src/Routers/resenas');
 
-// AsignaciÃ³n de rutas a sus respectivos controladores
+// Asignacion de rutas a sus respectivos controladores
 app.use('/api/usuarios', usuariosRouter);
 app.use('/api/productos', productosRouter);
 app.use('/api/compras', comprasRouter);
-app.use('/api/libros', librosRouter);   // Corregido: apuntaba a usuariosRouter
-app.use('/api/resenas', resenasRouter); // Corregido: apuntaba a productosRouter y se omitiÃ³ la 'Ã±'
+app.use('/api/libros', librosRouter);   
+app.use('/api/resenas', resenasRouter); 
 
 
 // vamos a documentar cada endpoint
@@ -66,14 +66,14 @@ app.get('/api', (req, res) => {
                 actualizar : 'PUT /api/compras/:id',
                 eliminar : 'DELETE /api/compras/:id'
             },
-            libros : { // Corregido: apuntaban a compras
+            libros : { 
                 listar : 'GET /api/libros',
                 obtener : 'GET /api/libros/:id',
                 crear : 'POST /api/libros',
                 actualizar : 'PUT /api/libros/:id',
                 eliminar : 'DELETE /api/libros/:id'
             },
-            resenas : { // Corregido: apuntaban a compras
+            resenas : {
                 listar : 'GET /api/resenas',
                 obtener : 'GET /api/resenas/:id',
                 crear : 'POST /api/resenas',
@@ -86,7 +86,6 @@ app.get('/api', (req, res) => {
 
 // vamos a crear una funcion para las rutas inexistentes de la API
 app.use('/api', (req, res) => {
-    // Corregido: Se eliminÃ³ res.send() adicional para evitar colisiÃ³n de respuestas
     res.status(404).json({
         status : 'error',
         message : 'Ruta no encontrada en la API'

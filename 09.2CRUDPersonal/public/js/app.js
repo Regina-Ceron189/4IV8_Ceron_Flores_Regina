@@ -32,7 +32,7 @@ navBtns.forEach(btn => {
 });
 
 // ============================================================
-// 2. SELECTOR DE ESTRELLAS (Corregido para usar la clase .star del HTML)
+// 2. SELECTOR DE ESTRELLAS
 // ============================================================
 
 const starBtns = document.querySelectorAll('#star-selector .star');
@@ -276,7 +276,7 @@ async function cargarResenas() {
 }
 
 // ============================================================
-// 7. CREAR TARJETA DE RESEÑA (Corregido selectores según el template HTML)
+// 7. CREAR TARJETA DE RESEÑA 
 // ============================================================
 
 const cardTemplate = document.getElementById('review-card-template');

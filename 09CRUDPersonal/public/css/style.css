@@ -16,7 +16,7 @@
             padding-bottom: 60px;
         }
 /*============================================================
-    ENCABEZADO (DEGRADADO EXACTO DESDE AZUL OSCURO A REY)
+    ENCABEZADO 
 ============================================================ */
 header { background: linear-gradient(135deg, #0f172a, #1e40af);
     color: white;
@@ -69,7 +69,7 @@ padding: 0 24px;
 }
 }
 /* ============================================================
-TARJETAS (CARDS BLANCAS LIMPIAS)
+TARJETAS
 ============================================================ */
 .card { background-color: #ffffff;
     border-radius: var(--radio-card);
@@ -147,7 +147,7 @@ INPUTS, SELECTS Y FORMULARIOS
     min-height: 110px;
 }
 /* ============================================================
-BOTÓN GUARDAR (TONO AZUL DE TU IMAGEN ORIGINAL)
+BOTÓN GUARDAR
 ============================================================ */
 .btn-primary {
     background-color: var(--color-azul-boton);

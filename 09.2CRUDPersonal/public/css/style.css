@@ -1,15 +1,15 @@
 /* ============================================================
-   style.css — Sistema de Compras y Biblioteca (Estilo Rosa)
+Sistema de Compras y Biblioteca
    ============================================================ */
 
-/* ---------- VARIABLES DE COLOR (Paleta Rosa) ---------- */
+/* ---------- VARIABLES DE COLOR  ---------- */
 :root {
-  --rosa-fondo:   #e873a9; /* Tono fuerte para el header */
-  --rosa-brillo:  #ecb4ce; /* Tono claro para el degradado */
-  --rosa-boton:   #d44e8d; /* Color vibrante para botones */
-  --fondo-pag:    #813956; /* Fondo muy suave de la página */
+  --rosa-fondo:   #e873a9; 
+  --rosa-brillo:  #ecb4ce; 
+  --rosa-boton:   #d44e8d; 
+  --fondo-pag:    #813956; 
   --blanco:       #ffffff;
-  --texto-oscuro: #e59fc0; /* Rosa muy oscuro para legibilidad */
+  --texto-oscuro: #e59fc0; 
   --texto-gris:   #e7c0d3;
   --borde-rosa:   #7a1744;
 }
@@ -107,7 +107,7 @@ body {
 
 .badge-status {
   background-color: #fdf2f8;
-  color: #a855f7; /* Un tono que combina con el rosa */
+  color: #a855f7; 
   font-weight: 700;
   padding: 6px 16px;
   border-radius: 6px;
@@ -148,7 +148,7 @@ body {
 .btn-primary:hover {
   filter: brightness(1.1);
 }
-/* ---------- NAVBAR (fix: fondo coherente con la paleta) ---------- */
+/* ---------- NAVBAR ---------- */
 .navbar {
   background: linear-gradient(to right, var(--rosa-fondo), var(--rosa-boton));
   display: flex;

@@ -1,20 +1,20 @@
 // ============================================================
 // PRÃCTICA 3 - PNT: Rutas de Compras (Express Router)
 // ============================================================
-// Este es el router mÃ¡s interesante porque trabaja con RELACIONES.
+// Este es el router mas interesante porque trabaja con RELACIONES.
 //
 // CONCEPTOS CLAVE:
 // - JOIN: combinar datos de varias tablas en una sola consulta
 // - INNER JOIN: solo muestra registros con coincidencia en ambas tablas
 // - Foreign Keys: las compras DEBEN referenciar un usuario y producto existentes
-// - Transacciones implÃ­citas: MySQL asegura que cada INSERT es atÃ³mico
+// - Transacciones implicitas: MySQL asegura que cada INSERT es automatico
 //
 // ENDPOINTS:
-// GET    /api/compras         â†’ Listar todas (con datos de usuario y producto)
-// GET    /api/compras/:id     â†’ Obtener una compra especÃ­fica
-// GET    /api/compras/usuario/:id â†’ Compras de un usuario especÃ­fico
-// POST   /api/compras         â†’ Registrar nueva compra
-// DELETE /api/compras/:id     â†’ Eliminar una compra
+// GET    /api/compras                   Listar todas (con datos de usuario y producto)
+// GET    /api/compras/:id              Obtener una compra especÃ­fica
+// GET    /api/compras/usuario/:id       Compras de un usuario especÃ­fico
+// POST   /api/compras                   Registrar nueva compra
+// DELETE /api/compras/:id               Eliminar una compra
 // ============================================================
 
 const express = require('express');
@@ -22,7 +22,7 @@ const router = express.Router();
 const db = require('../DB/database');
 
 // ============================================================
-// FUNCIÃ“N: Validar datos de compra
+// FUNCION: Validar datos de compra
 // ============================================================
 function validarCompra(datos) {
     const errores = [];
@@ -50,13 +50,13 @@ function validarCompra(datos) {
 }
 
 // ============================================================
-// GET /api/compras â€” Listar todas las compras
+// GET /api/compras Listar todas las compras
 // ============================================================
 // Esta consulta usa INNER JOIN para obtener datos de 3 tablas
-// en una sola peticiÃ³n. Sin JOIN, necesitarÃ­amos 3 consultas
+// en una sola peticion. Sin JOIN, necesitaremos 3 consultas
 // separadas y combinar los datos en JavaScript.
 //
-// INNER JOIN funciona asÃ­:
+// INNER JOIN funciona asi­:
 // 1. Toma la tabla principal (compras, alias 'c')
 // 2. Para cada fila de compras, busca la fila coincidente en usuarios
 //    donde c.usuario_id = u.id
@@ -100,7 +100,7 @@ router.get('/', async (req, res) => {
 });
 
 // ============================================================
-// GET /api/compras/:id â€” Obtener una compra por ID
+// GET /api/compras/:id Obtener una compra por ID
 // ============================================================
 router.get('/:id', async (req, res) => {
     try {
@@ -148,10 +148,10 @@ router.get('/:id', async (req, res) => {
 });
 
 // ============================================================
-// GET /api/compras/usuario/:usuario_id â€” Compras de un usuario
+// GET /api/compras/usuario/:usuario_id Compras de un usuario
 // ============================================================
-// Endpoint Ãºtil para ver el historial de compras de un usuario.
-// Demuestra cÃ³mo filtrar datos relacionados.
+// Endpoint para ver el historial de compras de un usuario.
+// Demuestra como filtrar datos relacionados.
 router.get('/usuario/:usuario_id', async (req, res) => {
     try {
         const { usuario_id } = req.params;
@@ -205,7 +205,7 @@ router.get('/usuario/:usuario_id', async (req, res) => {
 });
 
 // ============================================================
-// POST /api/compras â€” Registrar nueva compra
+// POST /api/compras Registrar nueva compra
 // ============================================================
 // Antes de insertar, verificamos que tanto el usuario como el
 // producto existan. Aunque la FK lo harÃ­a por nosotros, es mejor
@@ -269,7 +269,7 @@ router.post('/', async (req, res) => {
 });
 
 // ============================================================
-// DELETE /api/compras/:id â€” Eliminar una compra
+// DELETE /api/compras/:id Eliminar una compra
 // ============================================================
 router.delete('/:id', async (req, res) => {
     try {
