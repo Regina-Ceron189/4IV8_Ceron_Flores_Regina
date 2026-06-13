@@ -341,3 +341,31 @@ footer {
     background: #ffffff;
     color: #1e293b;
 }
+
+
+.container-footer {
+    margin-top: 20px;
+}
+
+.container-footer a {
+    color: #45547e;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.boton-regresar {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #99d1ff;
+    color: white !important;
+    text-decoration: none !important;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.boton-regresar:hover {
+    background-color: #537cc9;
+    transform: scale(1.02);
+}

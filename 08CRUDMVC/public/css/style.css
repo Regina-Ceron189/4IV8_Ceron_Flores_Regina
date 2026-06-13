@@ -296,3 +296,31 @@ button {
     .tabs { flex-wrap: wrap; }
     .tab { flex: 1; min-width: 100px; }
 }
+
+
+.container-footer {
+    margin-top: 20px;
+}
+
+.container-footer a {
+    color: #3e7cd3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.boton-regresar {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #2f235a;
+    color: white !important;
+    text-decoration: none !important;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.boton-regresar:hover {
+    background-color: #2f5a9c;
+    transform: scale(1.02);
+}

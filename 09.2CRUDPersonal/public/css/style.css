@@ -613,3 +613,31 @@ legend {
   font-size: 2.5rem;
   margin-bottom: 14px;
 }
+
+
+.container-footer {
+    margin-top: 20px;
+}
+
+.container-footer a {
+    color: #cc6699;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.boton-regresar {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff99bb;
+    color: white !important;
+    text-decoration: none !important;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.boton-regresar:hover {
+    background-color: #ff80aa;
+    transform: scale(1.02);
+}

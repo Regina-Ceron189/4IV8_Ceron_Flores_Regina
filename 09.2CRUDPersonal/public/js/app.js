@@ -4,15 +4,15 @@
  */
 
 // ============================================================
-// 1. NAVEGACIÓN DE PESTAÑAS
+// 1. NAVEGACIÓN DE PESTAÑAS Y CARGA DINÁMICA
 // ============================================================
 
 const navBtns = document.querySelectorAll('.nav-btn');
 const tabSections = document.querySelectorAll('.tab-section');
 
 /**
- * Activa una pestaña y oculta el resto.
- * @param {string} tabId - Identificador de la pestaña (ej. "libros")
+ * Activa una pestaña, oculta el resto y dispara la consulta a la API correspondiente.
+ * @param {string} tabId - Identificador de la pestaña
  */
 function activateTab(tabId) {
   navBtns.forEach(btn => {
@@ -21,9 +21,16 @@ function activateTab(tabId) {
   tabSections.forEach(section => {
     section.classList.toggle('hidden', section.id !== `tab-${tabId}`);
   });
-  // Si se activa la pestaña de libros, cargamos las reseñas
+
+  // Enrutamiento de peticiones según la pestaña activa
   if (tabId === 'libros') {
     cargarResenas();
+  } else if (tabId === 'por-leer') {
+    cargarPorLeer();
+  } else if (tabId === 'favoritos') {
+    cargarFavoritos();
+  } else if (tabId === 'estadisticas') {
+    cargarEstadisticas();
   }
 }
 
@@ -32,54 +39,55 @@ navBtns.forEach(btn => {
 });
 
 // ============================================================
-// 2. SELECTOR DE ESTRELLAS
+// 2. SELECTOR DE ESTRELLAS (ACTUALIZADO PARA "POR LEER")
 // ============================================================
 
 const starBtns = document.querySelectorAll('#star-selector .star');
 const calificacionInput = document.getElementById('calificacion');
 const starHint = document.getElementById('star-hint');
-const starLabels = ['', 'No me gustó', 'Fue pasable', 'Me gustó', 'Me encantó', '¡Obra maestra!'];
+const starLabels = ['Sin calificar', 'No me gustó', 'Fue pasable', 'Me gustó', 'Me encantó', '¡Obra maestra!'];
 
 let calificacionSeleccionada = 0;
 
-/**
- * Pinta las estrellas hasta el índice dado.
- * @param {number} valor - 0 para limpiar, 1-5 para resaltar
- */
 function pintarEstrellas(valor) {
   starBtns.forEach((btn, idx) => {
     const n = idx + 1;
-    btn.classList.toggle('hovered', n <= valor && valor !== calificacionSeleccionada);
-    btn.classList.toggle('selected', n <= calificacionSeleccionada);
-    if (valor > 0) {
-      btn.classList.toggle('hovered', n <= valor);
-    }
+    btn.classList.toggle('selected', n <= valor);
+    btn.classList.toggle('hovered', false);
   });
 }
 
 starBtns.forEach(btn => {
   const val = parseInt(btn.dataset.value);
 
-  btn.addEventListener('mouseenter', () => pintarEstrellas(val));
-  btn.addEventListener('mouseleave', () => pintarEstrellas(calificacionSeleccionada));
+  btn.addEventListener('mouseenter', () => {
+    starBtns.forEach((b, i) => b.classList.toggle('hovered', (i + 1) <= val));
+  });
+
+  btn.addEventListener('mouseleave', () => {
+    starBtns.forEach(b => b.classList.remove('hovered'));
+  });
+
   btn.addEventListener('click', () => {
-    calificacionSeleccionada = val;
-    calificacionInput.value = val;
-    starHint.textContent = starLabels[val];
-    starHint.style.color = 'var(--rosa-boton)';
-    pintarEstrellas(val);
+    if (calificacionSeleccionada === val) {
+      calificacionSeleccionada = 0;
+      calificacionInput.value = '';
+      starHint.textContent = starLabels[0];
+    } else {
+      calificacionSeleccionada = val;
+      calificacionInput.value = val;
+      starHint.textContent = starLabels[val];
+    }
+    
+    starHint.style.color = calificacionSeleccionada === 0 ? '' : 'var(--rosa-boton)';
+    pintarEstrellas(calificacionSeleccionada);
   });
 });
 
 // ============================================================
-// 3. VALIDACIÓN DEL FORMULARIO
+// 3. VALIDACIÓN DEL FORMULARIO (CON RESTRICCIÓN "POR LEER")
 // ============================================================
 
-/**
- * Muestra o limpia un mensaje en la interfaz del formulario.
- * @param {string} texto
- * @param {'error'|'success'|null} tipo
- */
 function mostrarMensaje(texto, tipo) {
   const el = document.getElementById('form-message');
   if (!tipo) {
@@ -92,14 +100,10 @@ function mostrarMensaje(texto, tipo) {
   el.classList.remove('hidden');
 }
 
-/**
- * Valida todos los campos del formulario.
- * @returns {{ valido: boolean, datos: object|null }}
- */
 function validarFormulario() {
   const titulo       = document.getElementById('titulo').value.trim();
   const autor        = document.getElementById('autor').value.trim();
-  const genero       = document.getElementById('genero').value.trim();
+  const genero       = document.getElementById('genero').value; // Ahora es un select
   const paginasStr   = document.getElementById('paginas').value;
   const fecha_inicio = document.getElementById('fecha_inicio').value;
   const fecha_fin    = document.getElementById('fecha_fin').value;
@@ -107,43 +111,98 @@ function validarFormulario() {
   const resumen      = document.getElementById('resumen').value.trim();
   const opinion      = document.getElementById('opinion').value.trim();
   const cita         = document.getElementById('cita_favorita').value.trim();
-  const calificacion = parseInt(calificacionInput.value);
+  
+  const calificacionVal = calificacionInput.value;
+  const calificacion = calificacionVal ? parseInt(calificacionVal) : null;
 
-  // Limpiar estado de error previo
-  document.querySelectorAll('.field input, .field textarea').forEach(el => el.classList.remove('invalid'));
+  // Limpiar todos los errores previos visuales
+  document.querySelectorAll('.field input, .field textarea, .field select').forEach(el => el.classList.remove('invalid'));
 
-  // Campos requeridos
+  // 1. Título
   if (!titulo) {
     document.getElementById('titulo').classList.add('invalid');
-    return { valido: false, mensaje: 'El título del libro es obligatorio.' };
+    return { valido: false, mensaje: 'Error (Datos del Libro): El título no puede estar vacío.' };
   }
+  if (titulo.length > 255) {
+    document.getElementById('titulo').classList.add('invalid');
+    return { valido: false, mensaje: 'Error (Datos del Libro): El título excede los 255 caracteres.' };
+  }
+
+  // 2. Autor
   if (!autor) {
     document.getElementById('autor').classList.add('invalid');
-    return { valido: false, mensaje: 'El autor es obligatorio.' };
+    return { valido: false, mensaje: 'Error (Datos del Libro): Debes especificar el nombre del autor.' };
+  }
+  if (autor.length > 255) {
+    document.getElementById('autor').classList.add('invalid');
+    return { valido: false, mensaje: 'Error (Datos del Libro): El nombre del autor excede los 255 caracteres.' };
   }
 
-  // Páginas
-  const paginas = parseInt(paginasStr);
-  if (!paginasStr || isNaN(paginas) || paginas < 1 || !Number.isInteger(paginas)) {
+  // 3. Género (Opcional, pero si está, verificar)
+  if (genero && genero.length > 100) {
+    document.getElementById('genero').classList.add('invalid');
+    return { valido: false, mensaje: 'Error (Datos del Libro): El género seleccionado no es válido.' };
+  }
+
+  // 4. Páginas
+  if (!paginasStr) {
     document.getElementById('paginas').classList.add('invalid');
-    return { valido: false, mensaje: 'Las páginas deben ser un número entero mayor a 0.' };
+    return { valido: false, mensaje: 'Error (Datos del Libro): El número de páginas es obligatorio.' };
+  }
+  
+  const paginas = parseInt(paginasStr);
+  if (isNaN(paginas) || !Number.isInteger(paginas)) {
+    document.getElementById('paginas').classList.add('invalid');
+    return { valido: false, mensaje: 'Error (Datos del Libro): Las páginas deben ser un número entero.' };
+  }
+  if (paginas < 1 || paginas > 10000) { // Límite razonable para un libro
+    document.getElementById('paginas').classList.add('invalid');
+    return { valido: false, mensaje: 'Error (Datos del Libro): Las páginas deben estar entre 1 y 10,000.' };
   }
 
-  // Validación de fechas
+  // 5. Restricción para "Por Leer" (Sin calificación)
+  if (!calificacion || calificacion === 0) {
+    if (fecha_inicio || fecha_fin || opinion) {
+      if (fecha_inicio) document.getElementById('fecha_inicio').classList.add('invalid');
+      if (fecha_fin) document.getElementById('fecha_fin').classList.add('invalid');
+      if (opinion) document.getElementById('opinion').classList.add('invalid');
+      return { 
+        valido: false, 
+        mensaje: 'Aviso (Tu Reseña): Al no elegir estrellas (Lista de Deseos), no puedes llenar fechas ni opinión.' 
+      };
+    }
+  } else {
+    // Si SÍ hay calificación, verificar que sea válida
+    if (calificacion < 1 || calificacion > 5) {
+       // El input hidden no puede tener clase 'invalid', así que no resaltamos, solo mostramos el error
+       return { valido: false, mensaje: 'Error (Tu Reseña): La calificación debe ser un valor de 1 a 5 estrellas.' };
+    }
+  }
+
+  // 6. Fechas y lógica de tiempo
   if (fecha_inicio && fecha_fin && fecha_fin < fecha_inicio) {
     document.getElementById('fecha_fin').classList.add('invalid');
-    return { valido: false, mensaje: 'La fecha de finalización no puede ser anterior a la de inicio.' };
+    document.getElementById('fecha_inicio').classList.add('invalid');
+    return { valido: false, mensaje: 'Error (Datos del Libro): La fecha de inicio no puede ser posterior a la fecha de término.' };
   }
 
-  // Calificación
-  if (!calificacionInput.value || isNaN(calificacion) || calificacion < 1 || calificacion > 5) {
-    starHint.textContent = '⚠ Selecciona una calificación del 1 al 5';
-    starHint.style.color = '#e57373';
-    return { valido: false, mensaje: 'Debes seleccionar una calificación del 1 al 5.' };
+  // 7. Textos largos (Resumen, Opinión, Citas) - Evitar sobrecarga en la base de datos
+  if (resumen && resumen.length > 5000) {
+    document.getElementById('resumen').classList.add('invalid');
+    return { valido: false, mensaje: 'Error (Tu Reseña): El resumen es demasiado largo (máximo 5000 caracteres).' };
+  }
+  if (opinion && opinion.length > 5000) {
+    document.getElementById('opinion').classList.add('invalid');
+    return { valido: false, mensaje: 'Error (Tu Reseña): La opinión es demasiado larga (máximo 5000 caracteres).' };
+  }
+  if (cita && cita.length > 2000) {
+    document.getElementById('cita_favorita').classList.add('invalid');
+    return { valido: false, mensaje: 'Error (Tu Reseña): La cita favorita es demasiado larga (máximo 2000 caracteres).' };
   }
 
   return {
     valido: true,
+    esPorLeer: !calificacion, // Bandera para identificar si va a la lista de deseos
     datos: {
       titulo,
       autor,
@@ -166,7 +225,7 @@ function validarFormulario() {
 
 document.getElementById('btn-guardar').addEventListener('click', async () => {
   mostrarMensaje('', null);
-  const { valido, datos, mensaje } = validarFormulario();
+  const { valido, datos, mensaje, esPorLeer } = validarFormulario();
   if (!valido) {
     mostrarMensaje(mensaje, 'error');
     return;
@@ -177,23 +236,22 @@ document.getElementById('btn-guardar').addEventListener('click', async () => {
   btnGuardar.textContent = 'Guardando…';
 
   try {
-    const response = await fetch('/api/mislecturas', {
+    const response = await fetch('http://localhost:3000/api/mislecturas', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(datos),
     });
 
     if (!response.ok) {
-      // Intentamos leer el error del cuerpo; si viene vacío usamos el status
       const text = await response.text();
       let msg = `Error del servidor (${response.status})`;
       try { msg = JSON.parse(text).error || msg; } catch (_) {}
       throw new Error(msg);
     }
 
-    const result = await response.json();
-
-    mostrarMensaje('✦ Reseña guardada correctamente.', 'success');
+    // Mensaje dinámico según la condición de calificación
+    const textoExito = esPorLeer ? '✦ Añadido a tu lista de deseos.' : '✦ Reseña guardada correctamente.';
+    mostrarMensaje(textoExito, 'success');
     limpiarFormulario();
     cargarResenas();
 
@@ -224,13 +282,13 @@ function limpiarFormulario() {
   document.getElementById('formato').value = 'Físico';
   calificacionInput.value = '';
   calificacionSeleccionada = 0;
-  starHint.textContent = 'Selecciona una calificación';
+  starHint.textContent = 'Sin calificar';
   starHint.style.color = '';
   pintarEstrellas(0);
 }
 
 // ============================================================
-// 6. CARGAR Y RENDERIZAR RESEÑAS (GET)
+// 6. CARGAR Y RENDERIZAR RESEÑAS GENERALES (GET)
 // ============================================================
 
 async function cargarResenas() {
@@ -247,11 +305,10 @@ async function cargarResenas() {
   grid.innerHTML = '';
 
   try {
-    const response = await fetch('/api/mislecturas');
+    const response = await fetch('http://localhost:3000/api/mislecturas');
     if (!response.ok) throw new Error(`Error ${response.status}`);
 
     const libros = await response.json();
-
     loading.classList.add('hidden');
     contador.textContent = `${libros.length} libro${libros.length !== 1 ? 's' : ''}`;
 
@@ -271,7 +328,80 @@ async function cargarResenas() {
     console.error('[cargar reseñas]', err);
     loading.classList.add('hidden');
     empty.classList.remove('hidden');
-    empty.querySelector('p').textContent = 'Error al cargar las lecturas. Verifica la conexión con el servidor.';
+    empty.querySelector('p').textContent = 'Error al cargar las lecturas.';
+  }
+}
+
+// ============================================================
+// 6B. CARGAR LIBROS POR LEER Y FAVORITOS
+// ============================================================
+
+async function cargarPorLeer() {
+  const grid = document.getElementById('por-leer-container');
+  if (!grid) return;
+  grid.innerHTML = '<div class="state-box"><div class="spinner"></div><p>Cargando lista de deseos…</p></div>';
+
+  try {
+    const response = await fetch('http://localhost:3000/api/porleer');
+    if (!response.ok) throw new Error(`Error ${response.status}`);
+    const libros = await response.json();
+
+    if (libros.length === 0) {
+      grid.innerHTML = '<div class="state-box"><p>No tienes libros pendientes por leer.</p></div>';
+      return;
+    }
+
+    grid.innerHTML = '';
+    libros.forEach(libro => {
+      grid.appendChild(crearTarjeta(libro));
+    });
+  } catch (err) {
+    console.error('[cargar por leer]', err);
+    grid.innerHTML = '<div class="state-box"><p>Error al obtener la lista de pendientes.</p></div>';
+  }
+}
+
+async function cargarFavoritos() {
+  const grid = document.getElementById('favoritos-container');
+  if (!grid) return;
+  grid.innerHTML = '<div class="state-box"><div class="spinner"></div><p>Cargando favoritos…</p></div>';
+
+  try {
+    const response = await fetch('http://localhost:3000/api/favoritos');
+    if (!response.ok) throw new Error(`Error ${response.status}`);
+    const libros = await response.json();
+
+    if (libros.length === 0) {
+      grid.innerHTML = '<div class="state-box"><p>Aún no tienes libros calificados con 5 estrellas ★.</p></div>';
+      return;
+    }
+
+    grid.innerHTML = '';
+    libros.forEach(libro => {
+      grid.appendChild(crearTarjeta(libro));
+    });
+  } catch (err) {
+    console.error('[cargar favoritos]', err);
+    grid.innerHTML = '<div class="state-box"><p>Error al obtener tus favoritos.</p></div>';
+  }
+}
+
+// ============================================================
+// 6C. CARGAR ESTADÍSTICAS EN PANTALLA
+// ============================================================
+
+async function cargarEstadisticas() {
+  try {
+    const response = await fetch('http://localhost:3000/api/estadisticas');
+    if (!response.ok) throw new Error(`Error ${response.status}`);
+    const stats = await response.json();
+
+    document.getElementById('stat-total-libros').textContent = stats.totalLibros;
+    document.getElementById('stat-total-paginas').textContent = stats.totalPaginas;
+    document.getElementById('stat-promedio').textContent = stats.promedioCalificacion;
+    document.getElementById('stat-genero').textContent = stats.generoFavorito;
+  } catch (err) {
+    console.error('[cargar estadísticas]', err);
   }
 }
 
@@ -285,8 +415,7 @@ function crearTarjeta(libro) {
   const clone = cardTemplate.content.cloneNode(true);
   const card  = clone.querySelector('.review-card');
 
-  // Formato y Género (Modificado de .card-format/.card-genre a .tag-format/.tag-genre)
-  const formatoMap = { Físico: '📖 Físico', Digital: '💻 Digital', Audio: '🎧 Audio' };
+  const formatoMap = { Físico: 'Físico', Digital: 'Digital', Audio: 'Audio' };
   card.querySelector('.tag-format').textContent = formatoMap[libro.formato] || libro.formato;
 
   const genreEl = card.querySelector('.tag-genre');
@@ -296,44 +425,38 @@ function crearTarjeta(libro) {
     genreEl.remove();
   }
 
-  // Botón eliminar (Modificado de .card-delete-btn a .btn-delete)
   card.querySelector('.btn-delete').addEventListener('click', () => {
     abrirModalEliminar(libro.id, card);
   });
 
-  // Título y autor
   card.querySelector('.card-title').textContent = libro.titulo;
   card.querySelector('.card-author').textContent = `— ${libro.autor}`;
 
-  // Estrellas dinámicas
   const starsEl = card.querySelector('.card-stars');
+  const calificacionFinal = libro.calificacion || 0;
   for (let i = 1; i <= 5; i++) {
     const star = document.createElement('span');
     star.textContent = '★';
-    star.className = i <= libro.calificacion ? 'star-on' : 'star-off';
+    star.className = i <= calificacionFinal ? 'star-on' : 'star-off';
     starsEl.appendChild(star);
   }
 
-  // Detalles técnicos
   card.querySelector('.card-pages').textContent = libro.paginas ? `${libro.paginas} págs.` : '—';
   card.querySelector('.card-start').textContent  = formatearFecha(libro.fecha_inicio);
   card.querySelector('.card-end').textContent    = formatearFecha(libro.fecha_fin);
 
-  // Resumen
   if (libro.resumen) {
     const blk = card.querySelector('.card-summary-block');
     blk.querySelector('.card-summary').textContent = libro.resumen;
     blk.classList.remove('hidden');
   }
 
-  // Opinión
   if (libro.opinion) {
     const blk = card.querySelector('.card-opinion-block');
     blk.querySelector('.card-opinion').textContent = libro.opinion;
     blk.classList.remove('hidden');
   }
 
-  // Cita Favorita (Modificado de .card-quote-block/.card-quote a .card-quote/.card-quote-text)
   if (libro.cita_favorita) {
     const blk = card.querySelector('.card-quote');
     blk.querySelector('.card-quote-text').textContent = `"${libro.cita_favorita}"`;
@@ -380,7 +503,7 @@ modalConfirm.addEventListener('click', async () => {
   modalConfirm.textContent = 'Eliminando…';
 
   try {
-    const response = await fetch(`/api/mislecturas/${idAEliminar}`, { method: 'DELETE' });
+    const response = await fetch(`http://localhost:3000/api/mislecturas/${idAEliminar}`, { method: 'DELETE' });
     if (!response.ok) {
       const err = await response.json();
       throw new Error(err.error || `Error ${response.status}`);
